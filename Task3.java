@@ -1,9 +1,15 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Task3 {
     public static void main(String[] args) {
         System.out.println("1) " + isStrangePair("ratio", "orator"));
-        System.out.println("2) ");
+        System.out.print("2) ");
+        for (Product product : sale(new ArrayList<Product>(Arrays.asList(new Product("Laptop", 124200), new Product("Phone", 51450), new Product("Headphones", 13800))), 25)) {
+            System.out.print("{" + product.getName() + ", " + product.getPrice() + "} ");
+        }
+        System.out.println();
         System.out.println("3) " + successShot(-2, -3, 4, 5, -6));
         System.out.println("4) " + parityAnalysis(243));
         System.out.println("5) " + rps("paper", "scissors"));
@@ -11,12 +17,12 @@ public class Task3 {
         System.out.println("7) " + mostExpensive(new Item[] {new Item("Скакалка", 550, 8), new Item("Шлем", 3750, 4), new Item("Мяч", 2900, 10)}));
         System.out.println("8) " + longestUnique("abcba"));
         System.out.println("9.1) " + isPrefix("automation", "auto-"));
-        System.out.println("9.2) " + isSuffix("arachnophobia", "-tion"));
-
+        System.out.println("9.2) " + isSuffix("arachnophobia", "-phobia"));
+        System.out.println("10) " + doesBrickFit(1, 2, 2, 1, 1));
     }
 
     public static boolean isStrangePair(String s1, String s2) {
-        if (s1.equals("")|| s2.equals("")) {
+        if (s1.equals("") || s2.equals("")) {
             if (s1.equals(s2)) return true;
             else return false;
         }
@@ -24,9 +30,17 @@ public class Task3 {
         else return false;
     }
 
-    // public static  sale(, int discount) {
-        
-    // }
+    public static ArrayList<Product> sale(ArrayList<Product> arrayList, int discount) {
+        ArrayList<Product> outputArrayList = new ArrayList<>();
+        for (Product product : arrayList) {
+            float newPrice = (float)product.getPrice() * (100 - discount) / 100;
+            int roundedNewPrice;
+            if (newPrice < 1) roundedNewPrice = 1;
+            else roundedNewPrice = Math.round(newPrice);
+            outputArrayList.add(new Product(product.getName(), roundedNewPrice));
+        }
+        return outputArrayList;
+    }
 
     public static boolean successShot(double x, double y, double r, double m, double n) {
         double R = Math.sqrt(Math.pow((m - x), 2) + Math.pow((n - y), 2));
@@ -108,6 +122,29 @@ public class Task3 {
         if (word.length() < suf.length() - 1) return false;
         if (word.substring(beginIndex).equals(suf.substring(1))) return true;
         else return false;
+    }
+
+    public static boolean doesBrickFit(double a, double b, double c, double w, double h) {
+        if ((a <= w && b <= h) || (b <= w && a <= h) || (a <= w && c <= h) || (c <= w && a <= h) || (b <= w && c <= h) || (c <= w && b <= h)) return true;
+        else return false;
+    }
+}
+
+class Product {
+    private String name;
+    private int price;
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }
 
