@@ -9,7 +9,10 @@ public class Task3 {
         System.out.println("5) " + rps("paper", "scissors"));
         System.out.println("6) " + bugger(999));
         System.out.println("7) " + mostExpensive(new Item[] {new Item("Скакалка", 550, 8), new Item("Шлем", 3750, 4), new Item("Мяч", 2900, 10)}));
-        System.out.println("8) " + longestUnique("abcdefgewuwbnckshsk"));
+        System.out.println("8) " + longestUnique("abcba"));
+        System.out.println("9.1) " + isPrefix("automation", "auto-"));
+        System.out.println("9.2) " + isSuffix("arachnophobia", "-tion"));
+
     }
 
     public static boolean isStrangePair(String s1, String s2) {
@@ -77,7 +80,6 @@ public class Task3 {
         for (int i = s.length(); i > 1; i--) {
             for (int j = 0; j < s.length() - i + 1; j++) {
                 String substr = s.substring(j, j + i);
-                System.out.println(substr);
                 HashSet<Character> set = new HashSet<>();
                 boolean isUnique = true;
                 for (int k = 0; k < substr.length(); k++) {
@@ -92,6 +94,20 @@ public class Task3 {
             }
         }
         return s.substring(0, 1);
+    }
+
+    public static boolean isPrefix(String word, String pref) {
+        int endIndex = pref.length() - 1;
+        if (word.length() < endIndex) return false;
+        if (word.substring(0, endIndex).equals(pref.substring(0, endIndex))) return true;
+        else return false;
+    }
+
+    public static boolean isSuffix(String word, String suf) {
+        int beginIndex = word.length() - suf.length() + 1;
+        if (word.length() < suf.length() - 1) return false;
+        if (word.substring(beginIndex).equals(suf.substring(1))) return true;
+        else return false;
     }
 }
 
